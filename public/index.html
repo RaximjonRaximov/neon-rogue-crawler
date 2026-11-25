@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>NEON ROGUE // Cyberpunk Dungeon Crawler</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="game-frame">
+    <!-- Top System Bar -->
+    <header id="top-bar">
+      <div class="brand">
+        <span class="pulse-dot"></span>
+        <span class="logo">NEON ROGUE</span>
+        <span class="sub">// CYBER DUNGEON PROTOCOL</span>
+      </div>
+      <div class="top-status">
+        <span class="badge">FLOOR <strong id="hud-floor">1</strong></span>
+        <span class="badge">SCORE <strong id="hud-score" class="glow-cyan">0</strong></span>
+      </div>
+      <div class="actions">
+        <button id="btn-sound" class="btn-icon" title="Toggle Synthesizer">🔊</button>
+        <button id="btn-graveyard" class="btn-icon" title="Graveyard Records">💀</button>
+      </div>
+    </header>
+
+    <!-- Main Game Window -->
+    <div id="main-layout">
+      <!-- Left HUD Sidebar -->
+      <aside id="sidebar">
+        <!-- Vitals -->
+        <div class="panel-box">
+          <div class="panel-title">PILOT TELEMETRY</div>
+          <div class="vital-row">
+            <span>HEALTH</span>
+            <div class="bar-shell"><div id="bar-hp" class="bar-fill hp-color"></div></div>
+            <span id="txt-hp">100/100</span>
+          </div>
+          <div class="vital-row">
+            <span>ENERGY</span>
+            <div class="bar-shell"><div id="bar-energy" class="bar-fill energy-color"></div></div>
+            <span id="txt-energy">50/50</span>
+          </div>
+          <div class="vital-row">
+            <span>SHIELD</span>
+            <div class="bar-shell"><div id="bar-shield" class="bar-fill shield-color"></div></div>
+            <span id="txt-shield">25/25</span>
+          </div>
+        </div>
+
+        <!-- Inventory -->
+        <div class="panel-box">
+          <div class="panel-title">CYBERWARE INVENTORY</div>
+          <div id="inventory-list" class="inventory-slots">
+            <div class="item-slot active" data-item="blade">🗡️ Thermal Blade (+4 Atk)</div>
+            <div class="item-slot" data-item="nanite" id="slot-nanite">💉 Nanite Stim [x2]</div>
+            <div class="item-slot" data-item="emp" id="slot-emp">💣 EMP Charge [x1]</div>
+          </div>
+          <button id="btn-use-item" class="btn-action-small">ACTIVATE ITEM [E]</button>
+        </div>
+
+        <!-- Terminal Combat Log -->
+        <div class="panel-box log-panel">
+          <div class="panel-title">TACTICAL LOG</div>
+          <div id="combat-log" class="log-stream">
+            <div class="log-line text-cyan">> Infiltrating Floor 1 reactor complex...</div>
+            <div class="log-line text-yellow">> Arrow keys or WASD to navigate.</div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Canvas Screen -->
+      <main id="viewport-container">
+        <canvas id="dungeon-canvas"></canvas>
+
+        <!-- Defeat Overlay Modal -->
+        <div id="death-screen" class="overlay-modal">
+          <div class="modal-card">
+            <h2 class="glow-red">PILOT ELIMINATED</h2>
+            <p id="death-cause" class="death-summary">Overwhelmed by rogue automata on Floor 1.</p>
+            <div class="death-stats">
+              <div>SCORE: <strong id="death-score" class="glow-cyan">0</strong></div>
+              <div>FLOORS DESCENDED: <strong id="death-floors" class="glow-yellow">1</strong></div>
+            </div>
+            <form id="form-graveyard">
+              <label for="input-callsign">ENGRAVE CALLSIGN IN GRAVEYARD:</label>
+              <div class="input-row">
+                <input type="text" id="input-callsign" maxlength="15" placeholder="CIPHER_01" required autocomplete="off">
+                <button type="submit" class="btn-submit">SUBMIT</button>
+              </div>
+            </form>
+            <button id="btn-respawn" class="btn-respawn">RELOAD PROTOCOL</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Mobile Virtual Controls -->
+    <div id="mobile-pad" class="mobile-controls">
+      <div class="dpad-grid">
+        <button class="dbtn" data-key="w">▲</button>
+        <div class="dbtn-row">
+          <button class="dbtn" data-key="a">◀</button>
+          <button class="dbtn" data-key="wait">⏳</button>
+          <button class="dbtn" data-key="d">▶</button>
+        </div>
+        <button class="dbtn" data-key="s">▼</button>
+      </div>
+      <button id="mobile-btn-use" class="mobile-action-btn">ITEM</button>
+    </div>
+
+    <!-- Graveyard Wall of Fame Modal -->
+    <div id="graveyard-modal" class="overlay-modal">
+      <div class="modal-card wide-card">
+        <div class="modal-head">
+          <h3 class="glow-yellow">FALLEN PILOTS HALL OF FAME</h3>
+          <button id="btn-close-graveyard" class="btn-close">×</button>
+        </div>
+        <div class="modal-scroll-body">
+          <table class="grave-table">
+            <thead>
+              <tr>
+                <th>PILOT</th>
+                <th>FLOOR</th>
+                <th>SCORE</th>
+                <th>FATAL INCIDENT</th>
+              </tr>
+            </thead>
+            <tbody id="grave-rows">
+              <tr><td colspan="4" class="loading-td">Accessing mainframe archives...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

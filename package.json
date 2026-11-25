@@ -1,0 +1,26 @@
+{
+  "name": "neon-rogue-crawler",
+  "version": "1.0.0",
+  "description": "Procedural Cyberpunk Roguelike Dungeon Crawler with Web Audio synth & Express Graveyard API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "keywords": [
+    "roguelike",
+    "dungeon-crawler",
+    "cyberpunk",
+    "procedural",
+    "web-audio",
+    "nodejs",
+    "game"
+  ],
+  "author": "Raximjon Raximov",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}
